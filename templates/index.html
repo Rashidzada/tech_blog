@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog</title>
+    <style>
+        .profile{
+            width: 200px;
+            height: 200px;
+            border-radius: 200px;
+        }
+    </style>
+</head>
+<body>
+   {% for blog in blogs %}
+   <h1>Title: {{blog.title}}</h1>
+   <h1>Author:{{blog.user}}</h1>
+   <img src="{{blog.user.userprofile.profile_pic.url}}" class="profile"  alt="">
+   <ul>
+    {% for tag in blog.tags.all %}
+    <li>{{tag.title}}</li>
+     {%endfor%}
+   </ul>
+   {%endfor%}
+   
+</body>
+</html>
