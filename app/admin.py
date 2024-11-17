@@ -10,3 +10,8 @@ admin.site.register(models.Tag)
 class AdminBlog(admin.ModelAdmin):
     list_display = ['user','title','content','created_at','updated_at']
     search_fields = ['title']
+
+
+@admin.register(models.Contact)
+class AdminContact(admin.ModelAdmin):
+    list_display =  ['name','email','subject','message']

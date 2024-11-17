@@ -1,28 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Blog</title>
     <style>
-        .profile{
-            width: 200px;
-            height: 200px;
-            border-radius: 200px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content Styling */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .blog-card {
+            background-color: #fff;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .blog-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #ddd;
+        }
+
+        .blog-title {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .blog-author {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .tags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
         }
     </style>
 </head>
+
 <body>
-   {% for blog in blogs %}
-   <h1>Title: {{blog.title}}</h1>
-   <h1>Author:{{blog.user}}</h1>
-   <img src="{{blog.user.userprofile.profile_pic.url}}" class="profile"  alt="">
-   <ul>
-    {% for tag in blog.tags.all %}
-    <li>{{tag.title}}</li>
-     {%endfor%}
-   </ul>
-   {%endfor%}
-   
+    {% for message in messages%}
+    <script>
+        alert('{{message}}');
+    </script>
+    {%endfor%}
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">Tech Blog</div>
+        <nav class="nav">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/contact/">Contact</a>
+            <a href="/login/">Login</a>
+            <a href="/register/">Register</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% for blog in blogs %}
+        <div class="blog-card">
+            <div class="blog-header">
+                <img src="{{ blog.user.userprofile.profile_pic.url }}" class="profile" alt="Author Picture">
+                <div>
+                    <h1 class="blog-title">{{ blog.title }}</h1>
+                    <p class="blog-author">By: {{ blog.user }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                {% for tag in blog.tags.all %}
+                <span class="tag">{{ tag.title }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </body>
+
 </html>
