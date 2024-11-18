@@ -13,11 +13,10 @@ def index(request):
 def contact(request):
     if request.method == 'POST':
         name = request.POST['name']
-        email = request.POST['email']
         subject = request.POST['subject']
+        email = request.POST['email']
         message = request.POST['message']
-        models.Contact.objects.create(name = name , email = email , subject = subject , message = message)
-        messages.success(request=request , message=f'Your message was sent successfully thank you!')
+        models.Contact.objects.create(name = name , subject = subject , email= email , message = message)
+        messages.success(request=request, message=f'Thank Your message sent to us: {name}')
         return redirect('index')
-
     return render(request,'contact.html')
