@@ -15,3 +15,7 @@ class AdminBlog(admin.ModelAdmin):
 @admin.register(models.Contact)
 class AdminContact(admin.ModelAdmin):
     list_display =  ['name','email','subject','message']
+
+@admin.register(models.FeedBack)
+class AdminFeedBack(admin.ModelAdmin):
+    list_display = ['name','title','content','data_file']

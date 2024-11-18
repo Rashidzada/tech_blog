@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+        .feedback-list {
+            width: 80%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .feedback-list h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .feedback-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+        .feedback-item h3 {
+            margin: 0;
+            color: #28a745;
+        }
+        .feedback-item p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .feedback-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .feedback-item a:hover {
+            text-decoration: underline;
+        }
+        .no-feedback {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-list">
+        <h2>Feedback Received</h2>
+        
+        <!-- Feedback Items -->
+        <!-- Example block: Populate dynamically with backend logic -->
+        
+        {% if feedbacks %}
+
+        {% for feedback in feedbacks %}
+       
+        <div class="feedback-item">
+            <h3>{{feedback.name}}</h3>
+            <p><strong>Title:</strong> {{feedback.title}}</p>
+            <p><strong>Content:</strong>{{feedback.content}}</p>
+            <p>Time Create: {{feedback.created_at}}</p>
+            <p><strong>Uploaded File:</strong> 
+                {% if feedback.data_file %}
+                <a href="{{feedback.data_file.url}}" target="_blank">Download File</a>
+                {%endif%}
+            </p>
+        </div>
+       
+        {%endfor%}
+        
+        {%else%}
+        <p>No feed back yet Received</p>
+        {%endif%}
+
+        
+      
+
+        <!-- Message for no feedback -->
+        <!-- Uncomment this if no feedback exists -->
+        <!-- <p class="no-feedback">No feedback has been submitted yet.</p> -->
+    </div>
+</body>
+</html>

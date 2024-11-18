@@ -30,3 +30,15 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class FeedBack(models.Model):
+    name = models.CharField(max_length=233)
+    title = models.CharField(max_length=233)
+    content = models.TextField()
+    data_file  = models.FileField(upload_to='feedback_files/',blank=True)
+    created_at =  models.DateTimeField(auto_now_add=True)
+    response = models.TextField(blank=True)
+
+
+    def __str__(self):
+        return self.name 
