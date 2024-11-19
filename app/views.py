@@ -44,3 +44,33 @@ def display_feed_back(request):
         'feedbacks':feedback
     }
     return render(request,'display_feed_back.html',context)
+
+
+
+def add_news(request):
+    if request.method == 'POST':
+        user = request.user
+        title = request.POST['title']
+        content = request.POST['content']
+        image = request.FILES['image']
+        url = request.POST['url']
+        models.News.objects.create(user = user , title = title , content = content , image = image, url = url)
+        return redirect('news_list')
+    return render(request,'add_news.html')
+
+
+
+def news_list(request):
+    news = models.News.objects.all()
+    context = {
+        'news_list':news
+    }
+    return render(request,'news_list.html',context)
+
+
+def news_detail(request,news_id):
+    news  = models.News.objects.get(id = news_id)
+    context = {
+        'news':news
+    }
+    return render(request,'news_detail.html',context)

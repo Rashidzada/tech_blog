@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ news.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .news-header {
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .news-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .news-header p {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .news-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-content p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .news-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .news-meta span {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .news-url {
+            margin: 20px 0;
+        }
+
+        .news-url a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .news-url a:hover {
+            text-decoration: underline;
+            color: #388E3C;
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .back-button a {
+            text-decoration: none;
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-button a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="news-header">
+            <h1>{{ news.title }}</h1>
+            <p>By {{ news.user.username }} | Created on {{ news.created_at|date:"d M Y, H:i" }}</p>
+        </div>
+
+        <!-- Image -->
+        {% if news.image %}
+        <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-image">
+        {% endif %}
+
+        <!-- Content -->
+        <div class="news-content">
+            <div class="news-meta">
+                <span>Last Updated: {{ news.updated_at|date:"d M Y, H:i" }}</span>
+            </div>
+            <p>{{ news.content }}</p>
+
+            {% if news.url %}
+            <div class="news-url">
+                <p>Read more: <a href="{{ news.url }}" target="_blank">{{ news.url }}</a></p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button">
+            <a href="{% url 'news_list' %}">Back to News List</a>
+        </div>
+    </div>
+</body>
+</html>

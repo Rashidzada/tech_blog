@@ -19,3 +19,5 @@ class AdminContact(admin.ModelAdmin):
 @admin.register(models.FeedBack)
 class AdminFeedBack(admin.ModelAdmin):
     list_display = ['name','title','content','data_file']
+
+admin.site.register(models.News)
