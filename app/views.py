@@ -36,8 +36,6 @@ def feedback(request):
     return render(request, 'feedback.html')
 
 
-
-
 def display_feed_back(request):
     feedback = models.FeedBack.objects.all()
     context = {
@@ -52,7 +50,7 @@ def add_news(request):
         user = request.user
         title = request.POST['title']
         content = request.POST['content']
-        image = request.FILES['image']
+        image = request.FILES.get('image','')
         url = request.POST['url']
         models.News.objects.create(user = user , title = title , content = content , image = image, url = url)
         return redirect('news_list')
@@ -74,3 +72,11 @@ def news_detail(request,news_id):
         'news':news
     }
     return render(request,'news_detail.html',context)
+
+
+
+def delete_news(request,news_id):
+    news = models.News.objects.get(id = news_id)
+    news.delete()
+    messages.success(request=request , message= f'Your news deleted successfully :{news.title}?')
+    return redirect('news_list')

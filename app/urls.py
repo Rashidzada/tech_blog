@@ -7,5 +7,6 @@ urlpatterns = [
     path('display_feed_back/',views.display_feed_back,name='display_feed_back'),
     path('add_news/',views.add_news,name='add_news'),
     path('news_list/',views.news_list,name='news_list'),
-    path('news_detail/<int:news_id>/',views.news_detail,name='news_detail')
+    path('news_detail/<int:news_id>/',views.news_detail,name='news_detail'),
+    path('delete_news/<int:news_id>/',views.delete_news,name='delete_news'),
 ]

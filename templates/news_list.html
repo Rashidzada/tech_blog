@@ -30,6 +30,7 @@
         .news-item {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             border-bottom: 1px solid #ddd;
             padding: 10px 0;
         }
@@ -84,6 +85,39 @@
             margin-right: 10px;
         }
 
+        .news-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .news-actions a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .view-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #FFC107;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #DC3545;
+            color: white;
+        }
+
+        .news-actions a:hover {
+            opacity: 0.9;
+        }
+
         .add-news {
             text-align: center;
             margin: 20px 0;
@@ -104,6 +138,11 @@
     </style>
 </head>
 <body>
+    {%for message in messages %}
+    <script>
+      alert('{{message}}');
+    </script>
+    {%endfor%}
     <div class="container">
         <h2>News List</h2>
 
@@ -130,6 +169,11 @@
                     <span>By {{ news.user.username }}</span>
                     <span>Created: {{ news.created_at|date:"d M Y, H:i" }}</span>
                 </p>
+            </div>
+            <div class="news-actions">
+                <a href="{% url 'news_detail' news.id %}" class="view-btn">View</a>
+                <a href="" class="edit-btn">Edit</a>
+                <a href="{% url 'delete_news'  news.id %}" class="delete-btn">Delete</a>
             </div>
         </div>
         {% empty %}
