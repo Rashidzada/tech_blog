@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add News</title>
+    <title>Edit News</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,7 +51,7 @@
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
@@ -59,7 +59,7 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
         }
 
         .form-footer {
@@ -77,31 +77,29 @@
     </style>
 </head>
 <body>
-    {%for message in messages %}
-    <script>
-      alert('{{message}}');
-    </script>
-    {%endfor%}
     <div class="container">
-        <h2>Add News</h2>
-        <form method="POST" action="" enctype="multipart/form-data">
+        <h2>Edit News</h2>
+        <form method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <label for="title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Enter news title" required>
+            <input type="text" id="title" name="title" value="{{ news.title }}" placeholder="Enter news title" required>
 
             <label for="content">Content</label>
-            <textarea id="content" name="content" placeholder="Enter news content" rows="5"></textarea>
+            <textarea id="content" name="content" placeholder="Enter news content" rows="5">{{ news.content }}</textarea>
 
             <label for="image">Image</label>
             <input type="file" id="image" name="image">
+            {% if news.image %}
+                <p>Current Image: <img src="{{ news.image.url }}" alt="Current Image" style="max-width: 100%; height: auto;"></p>
+            {% endif %}
 
             <label for="url">URL</label>
-            <input type="url" id="url" name="url" placeholder="Enter related URL">
+            <input type="url" id="url" name="url" value="{{ news.url }}" placeholder="Enter related URL">
 
-            <button type="submit">Submit News</button>
+            <button type="submit">Update News</button>
 
             <div class="form-footer">
-                <a href="{% url 'news_list'%}">Back to News List</a>
+                <a href="{% url 'news_list' %}">Back to News List</a>
             </div>
         </form>
     </div>

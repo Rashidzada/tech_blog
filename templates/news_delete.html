@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Confirmation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+        <h2 class="text-lg font-bold text-gray-800">Confirm Deletion</h2>
+        <p class="text-sm text-gray-600 mt-2">
+            Are you sure you want to delete this news item? {{news.title}}.
+        </p>
+        <form method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="flex justify-between mt-6">
+                <!-- Submit Button -->
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Delete
+                </button>
+                <!-- Cancel Button -->
+                <a href="{% url 'news_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -44,17 +44,31 @@ def display_feed_back(request):
     return render(request,'display_feed_back.html',context)
 
 
-
 def add_news(request):
     if request.method == 'POST':
         user = request.user
-        title = request.POST['title']
-        content = request.POST['content']
-        image = request.FILES.get('image','')
-        url = request.POST['url']
-        models.News.objects.create(user = user , title = title , content = content , image = image, url = url)
-        return redirect('news_list')
-    return render(request,'add_news.html')
+        title = request.POST.get('title', '').strip()
+        content = request.POST.get('content', '').strip()
+        image = request.FILES.get('image', None)
+        url = request.POST.get('url', '').strip()
+
+        # Check for duplicate titles
+        if models.News.objects.filter(title=title).exists():
+            messages.warning(request, message='The title you entered already exists.')
+        else:
+            # Create the news item
+            models.News.objects.create(
+                user=user,
+                title=title,
+                content=content,
+                image=image,
+                url=url
+            )
+            messages.success(request, message='News item added successfully.')
+            return redirect('news_list')
+
+    return render(request, 'add_news.html')
+
 
 
 
@@ -77,6 +91,22 @@ def news_detail(request,news_id):
 
 def delete_news(request,news_id):
     news = models.News.objects.get(id = news_id)
-    news.delete()
-    messages.success(request=request , message= f'Your news deleted successfully :{news.title}?')
-    return redirect('news_list')
+    if request.method == 'POST':
+        news.delete()
+        messages.success(request=request , message=f'Your post deleded')
+        return redirect('news_list')
+    return render(request,'news_delete.html',{'news':news})
+
+def edit_news(request, news_id):
+    news = models.News.objects.get(id = news_id)
+
+    if request.method == 'POST':
+        news.title = request.POST.get('title')
+        news.content = request.POST.get('content')
+        news.url = request.POST.get('url')
+        if request.FILES.get('image'):
+            news.image = request.FILES['image']
+        news.save()
+        return redirect(f'/news_detail/{news_id}')  # Redirect to your desired page
+
+    return render(request, 'edit_news.html', {'news': news})

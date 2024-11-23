@@ -172,7 +172,7 @@
             </div>
             <div class="news-actions">
                 <a href="{% url 'news_detail' news.id %}" class="view-btn">View</a>
-                <a href="" class="edit-btn">Edit</a>
+                <a href="{% url 'edit_news' news.id %}" class="edit-btn">Edit</a>
                 <a href="{% url 'delete_news'  news.id %}" class="delete-btn">Delete</a>
             </div>
         </div>
