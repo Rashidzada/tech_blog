@@ -21,3 +21,8 @@ class AdminFeedBack(admin.ModelAdmin):
     list_display = ['name','title','content','data_file']
 
 admin.site.register(models.News)
+
+
+@admin.register(models.Student)
+class AdminStudent(admin.ModelAdmin):
+    list_display = ['name','eng','urd','total_marks','grade','percentage','remarks']

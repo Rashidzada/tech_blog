@@ -68,6 +68,10 @@
         {% for feedback in feedbacks %}
        
         <div class="feedback-item">
+           
+            <p>Title with Created Date : {{feedback.showdateinfo}}</p>
+            <h1>ID: {{feedback.id}}</h1>
+            <h1>{{forloop.counter}}</h1>
             <h3>{{feedback.name}}</h3>
             <p><strong>Title:</strong> {{feedback.title}}</p>
             <p><strong>Content:</strong>{{feedback.content}}</p>
@@ -77,6 +81,7 @@
                 <a href="{{feedback.data_file.url}}" target="_blank">Download File</a>
                 {%endif%}
             </p>
+            <h1>Feedback by Title : {{feedback.name_title|length}}</h1>
         </div>
        
         {%endfor%}

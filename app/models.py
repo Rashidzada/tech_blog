@@ -43,6 +43,14 @@ class FeedBack(models.Model):
     def __str__(self):
         return self.name 
     
+    @property
+    def showdateinfo(self):
+        return f'{self.created_at} || {self.title}'
+    
+    
+    @property
+    def name_title(self):
+        return f'{self.title} by {self.name}'
 
 class News(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -56,3 +64,46 @@ class News(models.Model):
 
     def __str__(self):
         return f'{self.title} news uploaded by {self.user.username}'
+    
+
+
+
+class Student(models.Model):
+    name = models.CharField(max_length=22)
+    eng = models.IntegerField()
+    urd = models.IntegerField()
+
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def total_marks(self):
+        total = (self.eng + self.urd)
+        return total
+    
+
+    @property
+    def percentage(self):
+         total = (self.eng + self.urd)
+         percent = total / 3 * 100/100
+         return round(percent,2)
+    
+    @property
+    def grade(self):
+        grade = ''
+        total = (self.eng + self.urd)
+        avg = total / 3
+        if avg >= 30:
+            return 'A'
+        elif avg >= 80:
+            return 'B'
+    @property
+    def remarks(self):
+        total = (self.eng + self.urd)
+        percent = total / 3 * 100/100
+        if percent >= 50:
+            return 'Passed'
+        else:
+            return 'Failed'
+    
