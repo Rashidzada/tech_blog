@@ -26,3 +26,7 @@ admin.site.register(models.News)
 @admin.register(models.Student)
 class AdminStudent(admin.ModelAdmin):
     list_display = ['name','eng','urd','total_marks','grade','percentage','remarks']
+
+@admin.register(models.Info)
+class AdminInfo(admin.ModelAdmin):
+    list_display = ['first_name','last_name','full_name']

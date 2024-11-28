@@ -4,8 +4,10 @@ from django.contrib import messages
 from .import models
 def index(request):
     blog = models.Blog.objects.all()
+    info = models.Info.objects.all()
     context = {
-        'blogs':blog
+        'blogs':blog,
+        'infos':info
     }
     return render(request,'index.html',context)
 

@@ -66,44 +66,37 @@ class News(models.Model):
         return f'{self.title} news uploaded by {self.user.username}'
     
 
-
-
 class Student(models.Model):
     name = models.CharField(max_length=22)
     eng = models.IntegerField()
     urd = models.IntegerField()
-
+    total_marks = models.IntegerField(editable=False, blank=True, null=True)
+    average_marks = models.FloatField(editable=False, blank=True, null=True)
+    percentage = models.FloatField(editable=False, blank=True, null=True)
+    grade = models.CharField(max_length=1, editable=False, blank=True, null=True)
+    remarks = models.CharField(max_length=10, editable=False, blank=True, null=True)
 
     def __str__(self):
         return self.name
-    
-    @property
-    def total_marks(self):
-        total = (self.eng + self.urd)
-        return total
+
+    def save(self, *args, **kwargs):
+        # Calculations before saving
+        self.total_marks = self.eng + self.urd
+        self.average_marks = round(self.total_marks / 2, 2)
+        self.percentage = round((self.total_marks / 200) * 100, 2)  # Assuming each subject has 100 marks
+        self.grade = 'A' if self.average_marks >= 80 else 'B' if self.average_marks >= 60 else 'C' if self.average_marks >= 40 else 'F'
+        self.remarks = 'Passed' if self.percentage >= 50 else 'Failed'
+        super().save(*args, **kwargs)
+
+class Info(models.Model):
+    first_name  = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.first_name
     
 
-    @property
-    def percentage(self):
-         total = (self.eng + self.urd)
-         percent = total / 3 * 100/100
-         return round(percent,2)
-    
-    @property
-    def grade(self):
-        grade = ''
-        total = (self.eng + self.urd)
-        avg = total / 3
-        if avg >= 30:
-            return 'A'
-        elif avg >= 80:
-            return 'B'
-    @property
-    def remarks(self):
-        total = (self.eng + self.urd)
-        percent = total / 3 * 100/100
-        if percent >= 50:
-            return 'Passed'
-        else:
-            return 'Failed'
-    
+    def full_name(self):
+        full =self.first_name +'-'+ self.last_name
+        return full.upper()
+
