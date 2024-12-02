@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import *
 # Create your views here.
 
 def signup(request):
@@ -53,3 +54,20 @@ def logout_view(request):
     logout(request=request)
     messages.success(request=request,message='You are logout successfylly')
     return redirect('login_view')
+
+def edit_profile(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        user_profile.user = request.user
+        user_profile.bio = request.POST.get('bio', '')
+        user_profile.address = request.POST.get('address', '')
+        
+        # Check if a new profile picture is uploaded
+        new_profile_pic = request.FILES.get('profile_pic')
+        if new_profile_pic:
+            user_profile.profile_pic = new_profile_pic  # Only update if a new file is provided
+            
+        user_profile.save()
+        return redirect('dashbaord')  # Fixing typo from 'dashbaord'
+    
+    return render(request, 'edit_profile.html', {'user_profile': user_profile})

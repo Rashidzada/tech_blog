@@ -25,11 +25,19 @@
     <div class="bg-white rounded-lg shadow-md p-6">
       <!-- User Profile Section -->
       <div class="flex items-center mb-6">
+        {% if request.user.userprofile.profile_pic%}
         <img
-          src="https://via.placeholder.com/100"
-          alt="User Profile"
-          class="w-24 h-24 rounded-full border"
-        />
+        src="{{request.user.userprofile.profile_pic.url}}"
+        alt="User Profile"
+        class="w-24 h-24 rounded-full border"
+      />
+      {%else%}
+      <img
+      src="https://via.placeholder.com/100"
+      alt="User Profile"
+      class="w-24 h-24 rounded-full border"
+    />
+    {%endif%}
         <div class="ml-6">
           <h2 class="text-2xl font-bold text-gray-800">{{request.user}}</h2>
           <p class="text-gray-600">Software Engineer</p>
@@ -41,7 +49,7 @@
         <!-- Detail Card -->
         <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
           <h3 class="text-lg font-bold text-gray-700">Email</h3>
-          <p class="text-gray-600">johndoe@example.com</p>
+          <p class="text-gray-600">{{request.user.email}}</p>
         </div>
         <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
           <h3 class="text-lg font-bold text-gray-700">Phone</h3>
@@ -49,7 +57,7 @@
         </div>
         <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
           <h3 class="text-lg font-bold text-gray-700">Joined</h3>
-          <p class="text-gray-600">January 15, 2024</p>
+          <p class="text-gray-600">{{request.user.date_joined}}</p>
         </div>
         <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
           <h3 class="text-lg font-bold text-gray-700">Role</h3>
@@ -58,10 +66,12 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="mt-6 flex justify-between">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Edit Profile
-        </button>
+      <div class="mt-6 flex justify-between" >
+        <a href="{% url 'edit_profile' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          
+            Edit Profile
+          
+        </a>
         <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
           Delete Account
         </button>

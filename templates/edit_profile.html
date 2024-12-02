@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+  <!-- Container -->
+  <div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-lg">
+    <div class="px-6 py-4">
+      <h1 class="text-2xl font-bold text-gray-700 text-center">Edit Your Profile</h1>
+      <p class="text-sm text-gray-500 text-center">Update your profile information and make it shine!</p>
+    </div>
+
+    <!-- Form -->
+    <form class="px-8 py-6" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- Bio -->
+      <div class="mb-4">
+        <label for="bio" class="block text-gray-700 font-semibold">Bio</label>
+        <textarea id="bio" name="bio" rows="4" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell something about yourself...">{{ user_profile.bio }}</textarea>
+      </div>
+
+      <!-- Address -->
+      <div class="mb-4">
+        <label for="address" class="block text-gray-700 font-semibold">Address</label>
+        <input id="address" name="address" type="text" value="{{ user_profile.address }}" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your address">
+      </div>
+
+      <!-- Profile Picture -->
+      <div class="mb-6">
+        <label for="profile_pic" class="block text-gray-700 font-semibold">Profile Picture</label>
+        <input id="profile_pic" name="profile_pic" type="file" class="w-full mt-2 text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+        {% if user_profile.profile_pic %}
+          <p class="mt-2 text-sm text-gray-500">Current: <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture" class="w-16 h-16 rounded-full mt-2"></p>
+        {% endif %}
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex items-center justify-between">
+        <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Save Changes</button>
+        <a href="{% url 'dashbaord' %}" class="text-blue-500 hover:underline">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
